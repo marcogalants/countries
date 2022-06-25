@@ -5,10 +5,9 @@ start*.cmd
 .flaskenv
 *.pyc
 *.pyo
-env/
+env*
 venv/
 .venv/
-env*
 dist/
 build/
 *.egg
