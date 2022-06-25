@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <script type = "text/javascript" src ="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script type = "text/javascript" src ="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+        {% block navbar %}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="{{ url_for('index')}}"><img src="{{ url_for('static', filename='img/countries-logo.png') }}" width="30" height="30" />    Countries</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                  </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" method="POST" action="/search">
+                  <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                </div>
+                {% if current_user.is_authenticated %}
+                  <li class="nav-link"><a href={{ url_for('logout')}}>logout</a></li>
+                {% else %}
+                  <li class="nav-link"><a href={{ url_for('login')}}>login</a></li>
+                  <li class="nav-link"><a href={{ url_for('register')}}>register</a></li>
+                {% endif %}
+            </nav>
+        {% endblock %}
+    <div class="content" id="content">
+        <!-- FLASH MESSAGES (IF ANY) -->
+          <div id="message"></div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                  {% for category, message in messages %}
+                      <p class="alert alert-{{ category }}">{{ message }}</p>
+                  {% endfor %}
+             {% endif %}
+          {% endwith %}
+          </div>
+        <!-- END FLASH MESSAGES -->
+				<div class="content">
+        {% block form %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+				</div>
+    </div>
+		<br />
+    <div class="row" style="margin-left: 1%;">
+      {% block footer %}
+      &copy &nbsp<a href="http://github.com/marcogalanti">Marco Galanti</a>
+      {% endblock %}
+    </div>
+  </body>
+</html>
