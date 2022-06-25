@@ -1,0 +1,43 @@
+{% extends "_default.html" %}
+{% block head %}{{ super() }}{% endblock %}
+{% block title %}User Registration{% endblock %}
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+{% block messages %}
+  {{super()}}
+{%endblock%}
+{% block form %}
+    <form class="mainform" method="POST" action="/register">
+        <dl>
+            {{ form.csrf_token }}
+            {{ form.hidden_tag }}
+						<div class="userform">
+							<div class="">
+									<div class="">{{ form.firstname.label }}</div> {{ form.firstname }}
+							</div>
+							 <div class="">
+									<div class="">{{ form.middlename.label }}</div> {{ form.middlename }}
+							</div>
+							<div class="">
+									<div class="">{{ form.lastname.label }}</div> {{ form.lastname }}
+							</div>
+							<div class="">
+									<div class="">{{ form.email.label }}</div> {{ form.email }}
+							</div>
+							<div class="">
+									<div class="">{{ form.username.label }}</div> {{ form.username }}
+							</div>
+							<div class="">
+									<div class="">{{ form.password.label }}</div> {{ form.password }}
+									<div class="">{{ form.repeated_password.label }}</div> {{ form.repeated_password }}
+							</div>
+							<div class="">
+									{{ form.remember.label }} <span class="appleswitch"><input id="remember" name="remember" class="apple-switch remember" type="checkbox"></span>
+							</div>
+							{{ form.submit() }}
+							<a href="/">Cancel</a>
+						</div>
+        </dl>
+    </form>
+{% endblock %}

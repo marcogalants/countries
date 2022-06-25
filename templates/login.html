@@ -1,0 +1,35 @@
+{% extends "_default.html" %}
+{% block head %}{{ super() }}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+{% block messages %}
+  {{super()}}
+{%endblock%}
+
+{% block form %}
+    <form class="mainform" method="POST" action="/login">
+        <dl>
+            {{ form.csrf_token }}
+            {{ form.hidden_tag }}
+						<div class="userform">
+            	<div class="">{{ form.email.label }}</div>
+            	<div class="">{{ form.email }}</div>
+
+            	<div class="">{{ form.password.label }}</div>
+            	<div class="">{{ form.password }}</div>
+
+            	<div>
+              	{{ form.remember.label }} <span class="appleswitch"><input id="remember" name="remember" class="apple-switch remember" type="checkbox"></span>
+            	</div>
+        			<input type="Submit" class="btn btn-primary" value="Login">
+        			<button class="btn btn-default">Cancel</button>
+							<p></p>
+							<div class="registration">New user?
+								<a href="/register">Sign up here</a> 
+							</div>
+						</div>
+				</dl>
+    </form>
+{% endblock %}

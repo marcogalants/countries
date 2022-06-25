@@ -1,0 +1,18 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+
+{% for country in countries %}
+    <br />
+        <p>name: {{country['name']}}</p>
+        <img src="{{country['flag']}}" alt="CountryFlag" height="42" width="42">
+    <br /><br />
+    {% for attr in country %}
+        {% if (attr != "flag") and (attr != "name") %}
+            <li>{{attr}} : {{country[attr]}}</li>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</body>
