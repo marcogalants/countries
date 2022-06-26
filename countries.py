@@ -22,6 +22,7 @@ DB_NAME = environ['DB_NAME']
 DB_USER = environ['DB_USER']
 DB_PASSWD = environ['DB_PASSWD']
 SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL')
+SQLALCHEMY_DATABASE_URI.replace("postgres:", "postgresql:") 
 if SQLALCHEMY_DATABASE_URI:
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI + "?sslmode=require"
 else:
