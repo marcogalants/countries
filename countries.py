@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from os import path as path
 from os import environ as environ
+import re
 
 
 app = Flask(__name__)
@@ -16,19 +17,8 @@ basedir = path.abspath(path.dirname(__file__))
 ###############
 
 # POSTGRESQL DB
-DB_HOST = environ['DB_HOST']
-DB_PORT = environ['DB_PORT']
-DB_NAME = environ['DB_NAME']
-DB_USER = environ['DB_USER']
-DB_PASSWD = environ['DB_PASSWD']
-SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL')
-SQLALCHEMY_DATABASE_URI.replace("postgres:", "postgresql:") 
-if SQLALCHEMY_DATABASE_URI:
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI + "?sslmode=require"
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DB_USER}:{DB_PASSWD})@{DB_HOST}:{DB_PORT}/{DB_NAME}?sslmode=require'
-###############
-
+SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
