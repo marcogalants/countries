@@ -7,7 +7,10 @@ from models.country import Country
 from user_forms import LoginForm, RegisterForm
 import json
 
-@app.errorhandler(401)
+country = Blueprint("country", __name__, template_folder="templates", static_folder="static")
+
+
+@country.errorhandler(401)
 def unauthorized(e):
     # set the 401 status explicitly
     flash('unauthorized access please login')
@@ -43,8 +46,8 @@ def syncCountries():
 def getCountries():
     return Country.query.all()
 
-@app.route('/index')
-@app.route('/')
+@country.route('/index')
+@country.route('/')
 @login_required
 def index():
     title = "Countries list"
@@ -58,7 +61,7 @@ def index():
         countries = syncCountries()
     return render_template('index.html', title = title, countries = countries, columns = columns)
 
-@app.route('/search', methods=['GET','POST'])
+@country.route('/search', methods=['GET','POST'])
 def search(country):
     if request.method == 'POST':
         if country == "":

@@ -1,5 +1,6 @@
 #MAC/Flask file
-start*.cmd
+*.cmd
+*.run
 .DS_Store
 .env
 env*
@@ -20,6 +21,16 @@ build/
 docs/_build/
 .vscode
 __pycache__/
+
+# Sqlite Database 
+*.db
+*.schema
+
+# Certificates and Keys
+*.crt
+*.pem
+*.key
+*.csr
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
